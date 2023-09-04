@@ -24,13 +24,22 @@ assign osc_sel		= ui_in[7];
 
 //OUTPUTS
 assign uo_out[0] = tx;
-assign uo_out[1] = count_reg[8];
-assign uo_out[2] = count_reg[9];
-assign uo_out[3] = count_reg[10];
-assign uo_out[4] = count_reg[11];
-assign uo_out[5] = count_reg[12];
-assign uo_out[6] = count_reg[13];
-assign uo_out[7] = count_reg[14];
+assign uo_out[1] = count_reg[1];
+assign uo_out[2] = count_reg[2];
+assign uo_out[3] = count_reg[3];
+assign uo_out[4] = count_reg[4];
+assign uo_out[5] = count_reg[5];
+assign uo_out[6] = count_reg[6];
+assign uo_out[7] = count_reg[7];
+assign uio_out[0] = count_reg[8];
+assign uio_out[1] = count_reg[8];
+assign uio_out[2] = count_reg[9];
+assign uio_out[3] = count_reg[10];
+assign uio_out[4] = count_reg[11];
+assign uio_out[5] = count_reg[12];
+assign uio_out[6] = count_reg[13];
+assign uio_out[7] = count_reg[14];
+assign uio_oe = 8'b11111111;
 
 //INTERNALS
 wire rx, rx_ready, tx, tx_start, tx_busy, test;
