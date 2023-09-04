@@ -13,14 +13,13 @@ VERILOG_SOURCES += $(PWD)/tb.v $(PWD)/tt_um_rodrigomunoz1_rotempsensor_top.v \
 					$(PWD)/cells.v $(PWD)/contador.v $(PWD)/data_sync.v \
 					$(PWD)/FSM_controller.v $(PWD)/mux.v $(PWD)/promedio.v \
 					$(PWD)/uart_basic.v $(PWD)/uart_baud_tick_gen.v \
-					$(PWD)/uart_rx.v $(PWD)/uart_tx.v $(PWD)/USM_ringoscillator.v
- 
+					$(PWD)/uart_rx.v $(PWD)/uart_tx.v $(PWD)/USM_ringoscillator.v  
 else
 
 # gate level simulation requires some extra setup, you shouldn't need to touch this
 COMPILE_ARGS    += -DGL_TEST
 COMPILE_ARGS    += -DFUNCTIONAL
-#COMPILE_ARGS    += -DUSE_POWER_PINS
+COMPILE_ARGS    += -DUSE_POWER_PINS
 COMPILE_ARGS    += -DSIM
 COMPILE_ARGS    += -DUNIT_DELAY=\#1
 VERILOG_SOURCES += $(PDK_ROOT)/sky130A/libs.ref/sky130_fd_sc_hd/verilog/primitives.v
