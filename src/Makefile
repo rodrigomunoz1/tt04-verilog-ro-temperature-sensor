@@ -9,7 +9,7 @@ TOPLEVEL_LANG ?= verilog
 ifneq ($(GATES),yes)
 
 # this is the only part you should need to modify:
-VERILOG_SOURCES += $(PWD)/tb.v $(PWD)/tt_rodrigomunoz1_rotempsensor_top.v \
+VERILOG_SOURCES += $(PWD)/tb.v $(PWD)/tt_um_rodrigomunoz1_rotempsensor_top.v \
 					$(PWD)/cells.v $(PWD)/contador.v $(PWD)/data_sync.v \
 					$(PWD)/FSM_controller.v $(PWD)/mux.v $(PWD)/promedio.v \
 					$(PWD)/uart_basic.v $(PWD)/uart_baud_tick_gen.v \

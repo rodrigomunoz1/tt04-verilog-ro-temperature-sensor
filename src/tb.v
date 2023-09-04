@@ -48,7 +48,7 @@ module tb ();
     assign tx           = uo_out[0];
     assign counter      = uo_out[7:1];
 
-    tt_rodrigomunoz1_rotempsensor_top tt_rodrigomunoz1_rotempsensor_top (
+    tt_um_rodrigomunoz1_rotempsensor_top tt_rodrigomunoz1_rotempsensor_top (
     // include power ports for the Gate Level test
     `ifdef GL_TEST
         .VPWR( 1'b1),
