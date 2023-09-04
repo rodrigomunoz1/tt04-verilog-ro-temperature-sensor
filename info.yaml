@@ -30,7 +30,7 @@ yaml_version: 4
 #
 # Here is a great example: https://github.com/davidsiaw/tt02-davidsiaw-stackcalc/blob/38c5647f83aad2aec675d566aa3d67b98f0aac81/info.yaml
 documentation: 
-  author:       ""Jorge Marin, Daniel Arevalos, Rodrigo Munoz"
+  author:       "Jorge Marin, Daniel Arevalos, Rodrigo Munoz"
   title:        "ring oscillator based temperature sensor"
   language:     "Verilog"
   description:  "Ring oscillator whose frecuency depends on temperature."
