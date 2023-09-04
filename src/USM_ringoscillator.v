@@ -8,7 +8,7 @@ module nand_with_delay(
 
 `ifdef COCOTB_SIM
 //assign #0.02 Y=~A;
-assign #200 Y=~A;
+assign #20 Y=~A;
 `else
 sky130_fd_sc_hd__nand4_4 nand4(.Y(Y), .A(A), .B(A), .C(A), .D(A));
 //nor #(2) (Y,A,A);
@@ -22,7 +22,7 @@ module inv_with_delay(
 
 `ifdef COCOTB_SIM
 //assign #0.02 Y=~A;
-assign #200 Y=~A;
+assign #20 Y=~A;
 `else
 sky130_fd_sc_hd__inv_2 inv(.A(A),.Y(Y));
 //nor #(2) (Y,A,A);

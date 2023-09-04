@@ -31,7 +31,7 @@ assign uo_out[4] = count_reg[4];
 assign uo_out[5] = count_reg[5];
 assign uo_out[6] = count_reg[6];
 assign uo_out[7] = count_reg[7];
-assign uio_out[7:0] = count_reg[15:8];
+assign uio_out[7:0] = 8'b00000000;
 assign uio_oe = 8'b11111111;
 
 //INTERNALS
