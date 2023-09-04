@@ -20,15 +20,35 @@ module tb ();
     reg  clk;
     reg  rst_n;
     reg  ena;
-    reg  [7:0] ui_in;
+    wire [7:0] ui_in;
+    reg [7:0] uo_out;
     reg  [7:0] uio_in;
-
-    wire [6:0] segments = uo_out[6:0];
-    wire [7:0] uo_out;
     wire [7:0] uio_out;
     wire [7:0] uio_oe;
 
-    tt_um_seven_segment_seconds tt_um_seven_segment_seconds (
+    //inputs signals
+    reg clk_external;
+    reg clk_sel;
+    reg en_inv_osc;
+    reg en_nand_osc;
+    reg rx;
+    reg osc_sel;
+    //outputs signals
+    wire tx;
+    wire [6:0] counter;
+
+    //assign
+    assign ui_in[1] = clk_external;
+    assign ui_in[2] = clk_sel;
+    assign ui_in[3] = en_inv_osc;
+    assign ui_in[4] = en_nand_osc;
+    assign ui_in[6] = rx;
+    assign ui_in[7] = osc_sel;
+    //outputs signals map
+    assign tx           = uo_out[0];
+    assign counter      = uo_out[7:1];
+
+    tt_rodrigomunoz1_rotempsensor_top tt_rodrigomunoz1_rotempsensor_top (
     // include power ports for the Gate Level test
     `ifdef GL_TEST
         .VPWR( 1'b1),
