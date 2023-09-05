@@ -19,7 +19,7 @@ async def test_ro_temp_sensor(dut):
     dut.ena.value = 1
     dut.clk_external.value = 0
     dut.clk_sel.value = 1
-    dut.osc_sel.value = 0
+    dut.osc_sel.value = 1
     dut.en_inv_osc.value = 0
     dut.en_nand_osc.value = 0
     dut.rx.value = 1

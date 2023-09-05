@@ -13,6 +13,8 @@ VERILOG_SOURCES += $(PWD)/tb.v $(PWD)/tt_um_rodrigomunoz1_rotempsensor_top.v \
 					$(PWD)/cells.v $(PWD)/contador.v $(PWD)/data_sync.v \
 					$(PWD)/FSM_controller.v $(PWD)/mux.v $(PWD)/promedio.v \
 					$(PWD)/uart_basic.v $(PWD)/uart_baud_tick_gen.v \
+					$(PWD)/primitives.v \
+					$(PWD)/sky130_fd_sc_hd.v \
 					$(PWD)/uart_rx.v $(PWD)/uart_tx.v $(PWD)/USM_ringoscillator.v  
 else
 
@@ -23,8 +25,8 @@ COMPILE_ARGS    += -DUSE_POWER_PINS
 COMPILE_ARGS    += -DSIM
 COMPILE_ARGS    += -DUNIT_DELAY=\#1
 VERILOG_SOURCES += $(PDK_ROOT)/sky130A/libs.ref/sky130_fd_sc_hd/verilog/primitives.v
-VERILOG_SOURCES += $(PDK_ROOT)/sky130A/libs.ref/sky130_fd_sc_hd/verilog/sky130_fd_sc_hd.v
 VERILOG_SOURCES += $(PWD)/gl/sky130_fd_sc_hd__inv_override.v
+VERILOG_SOURCES += $(PDK_ROOT)/sky130A/libs.ref/sky130_fd_sc_hd/verilog/sky130_fd_sc_hd.v
 
 # this gets copied in by the GDS action workflow
 VERILOG_SOURCES += $(PWD)/tb.v $(PWD)/gate_level_netlist.v
