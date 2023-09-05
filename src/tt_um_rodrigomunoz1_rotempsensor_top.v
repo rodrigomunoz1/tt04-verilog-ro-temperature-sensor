@@ -24,13 +24,7 @@ assign osc_sel		= ui_in[7];
 
 //OUTPUTS
 assign uo_out[0] = tx;
-assign uo_out[1] = count_reg[1];
-assign uo_out[2] = count_reg[2];
-assign uo_out[3] = count_reg[3];
-assign uo_out[4] = count_reg[4];
-assign uo_out[5] = count_reg[5];
-assign uo_out[6] = count_reg[6];
-assign uo_out[7] = count_reg[7];
+assign uo_out[7:1] = 7'b0000000;
 assign uio_out[7:0] = 8'b00000000;
 assign uio_oe = 8'b11111111;
 
