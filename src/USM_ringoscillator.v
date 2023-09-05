@@ -6,13 +6,13 @@ module nand_with_delay(
 	output Y
 );
 
-//`ifdef COCOTB_SIM
+`ifdef COCOTB_SIM
 //assign #0.02 Y=~A;
-//assign #20 Y=~A;
-//`else
+assign #20 Y=~A;
+`else
 sky130_fd_sc_hd__nand4_4 nand4(.Y(Y), .A(A), .B(A), .C(A), .D(A));
 //nor #(2) (Y,A,A);
-//`endif
+`endif
 endmodule
 
 module inv_with_delay(
@@ -20,13 +20,13 @@ module inv_with_delay(
 	output Y
 );
 
-//`ifdef COCOTB_SIM
+`ifdef COCOTB_SIM
 //assign #0.02 Y=~A;
-//assign #20 Y=~A;
-//`else
+assign #20 Y=~A;
+`else
 sky130_fd_sc_hd__inv_2 inv(.A(A),.Y(Y));
 //nor #(2) (Y,A,A);
-//`endif
+`endif
 endmodule
 
 module USM_ringoscillator_inv2(
