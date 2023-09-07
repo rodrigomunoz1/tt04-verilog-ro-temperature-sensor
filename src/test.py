@@ -14,25 +14,31 @@ async def test_ro_temp_sensor(dut):
     print(dir(dut))
 
     # reset
-    dut._log.info("reset")
+    dut._log.info("nreset=0")
     dut.rst_n.value = 0
     dut.ena.value = 1
     dut.clk_external.value = 0
     dut.clk_sel.value = 1
     dut.osc_sel.value = 0
     dut.rx.value = 1
+    dut._log.info("nreset=1")
     await ClockCycles(dut.clk, 5)
     dut.rst_n.value = 1
+    dut._log.info("osc1 select")
     await ClockCycles(dut.clk, 5)
     dut.osc_sel.value = 1
+    dut._log.info("osc2 select")
     await ClockCycles(dut.clk, 5)
     dut.osc_sel.value = 2
+    dut._log.info("osc3 select")
     await ClockCycles(dut.clk, 5)
     dut.osc_sel.value = 3
+    dut._log.info("osc4 select")
     await Timer(52083,'ns')
     for i in range(10):
         await Timer(1,'ms')
         dut.rx.value = rx_1[i]
+        dut._log.info("tx... ")
     await Timer(100000000,'ns')
 """
     dut.clk_sel.value = 1
