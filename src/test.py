@@ -39,7 +39,12 @@ async def test_ro_temp_sensor(dut):
         await Timer(1,'ms')
         dut.rx.value = rx_1[i]
         dut._log.info("tx... ")
-    await Timer(100000000,'ns')
+    await Timer(40,'ms')
+    for i in range(10):
+        await Timer(1,'ms')
+        dut.rx.value = rx_1[i]
+        dut._log.info("tx2... ")
+    await Timer(50,'ms')
 """
     dut.clk_sel.value = 1
     dut.osc_sel.value = 1
