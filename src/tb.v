@@ -33,6 +33,7 @@ module tb ();
     reg en_nand_osc;
     reg rx;
     reg [1:0] osc_sel;
+    reg [2:0] sum_sel;
     //outputs signals
     wire tx;
     wire [15:0] counter;
@@ -40,6 +41,7 @@ module tb ();
     //assign
     assign ui_in[0] = clk_external;
     assign ui_in[1] = clk_sel;
+    assign ui_in[4:2] = sum_sel[2:0];
     assign ui_in[5] = rx;
     assign ui_in[7:6] = osc_sel;
     //outputs signals map

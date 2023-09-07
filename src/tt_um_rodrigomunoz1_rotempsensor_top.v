@@ -15,7 +15,7 @@ module tt_um_rodrigomunoz1_rotempsensor_top(
 assign clk_internal	= clk;
 assign clk_external	= ui_in[0];
 assign clk_sel		= ui_in[1];
-
+assign sum_sel[2:0]	= ui_in[4:2];
 assign rx			= ui_in[5];
 assign osc_sel[1:0]	= ui_in[7:6];
 
@@ -38,6 +38,7 @@ wire clk_external, clk_sel, clk_internal, clk1;
 
 wire rx, rx_ready, tx, tx_start, tx_busy, test;
 wire sum_ready, sum_en;
+wire [2:0] sum_sel;
 wire [23:0] promedio;
 wire [15:0] count;
 reg [15:0] count_reg;
@@ -78,7 +79,8 @@ always @(posedge clk1) begin
 	else count_reg <= count; 
 end
 
-promedio #(24) prom(clk1, rst_n, ena, sum_en, count, promedio, sum_ready);
+promedio #(24) prom(clk1, rst_n, ena, sum_sel, sum_en, count, promedio,
+					sum_ready);
 
 //Controller
 FSM_controller controller(clk1, rst_n, sum_ready, test, rx_ready, 
