@@ -28,12 +28,12 @@ async def test_ro_temp_sensor(dut):
     await ClockCycles(dut.clk, 5)
     dut.osc_sel.value = 1
     dut._log.info("osc2 select")
-    await ClockCycles(dut.clk, 5)
-    dut.osc_sel.value = 2
-    dut._log.info("osc3 select")
-    await ClockCycles(dut.clk, 5)
-    dut.osc_sel.value = 3
-    dut._log.info("osc4 select")
+    #await ClockCycles(dut.clk, 5)
+    #dut.osc_sel.value = 2
+    #dut._log.info("osc3 select")
+    #await ClockCycles(dut.clk, 5)
+    #dut.osc_sel.value = 3
+    #dut._log.info("osc4 select")
     await Timer(52083,'ns')
     for i in range(10):
         await Timer(1,'ms')
