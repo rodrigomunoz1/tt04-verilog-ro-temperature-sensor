@@ -20,8 +20,8 @@ localparam SEND_SUM_1 = 3;
 localparam WAIT_SEND_1 = 4;
 localparam SEND_SUM_2 = 5;
 localparam WAIT_SEND_2 = 6;
-//localparam SEND_SUM_3 = 7;
-//localparam WAIT_SEND_3 = 8;
+localparam SEND_SUM_3 = 7;
+localparam WAIT_SEND_3 = 8;
 
 localparam START_CODE = 0;
 
@@ -56,7 +56,8 @@ always @* begin
 			next_state = WAIT_SEND_1;
 		end
 		WAIT_SEND_1: begin
-			if(timer >= 100) next_state = SEND_SUM_2;
+			//if(!tx_busy) next_state = SEND_SUM_2;
+			if(timer >= 868) next_state = SEND_SUM_2;
 		end
 		SEND_SUM_2: begin
 			tx_send = 1;
@@ -65,17 +66,19 @@ always @* begin
 		end
 		WAIT_SEND_2: begin
 			send_sel = 1;
-			if(timer >= 100) next_state = IDLE;
+			//if(!tx_busy) next_state = SEND_SUM_3;
+			if(timer >= 868) next_state = SEND_SUM_3;
 		end
-//		SEND_SUM_3: begin
-//			tx_send = 1;
-//			send_sel = 2;
-//			next_state = WAIT_SEND_3;
-//		end
-//		WAIT_SEND_3: begin
-//			send_sel = 2;
-//			if(timer >= 100) next_state = WAIT_SUM;
-//		end
+		SEND_SUM_3: begin
+			tx_send = 1;
+			send_sel = 2;
+			next_state = WAIT_SEND_3;
+		end
+		WAIT_SEND_3: begin
+			send_sel = 2;
+			//if(!tx_busy) next_state = IDLE;
+			if(timer >= 868) next_state = IDLE;
+		end
 	endcase
 end
 //Stete control

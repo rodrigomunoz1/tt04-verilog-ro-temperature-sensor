@@ -8,7 +8,7 @@ rx_2 = [0,1,0,0,0,0,0,0,0,1]
 @cocotb.test()
 async def test_ro_temp_sensor(dut):
     dut._log.info("start")
-    clock = Clock(dut.clk, 100, units="us") #clock 50MHz
+    clock = Clock(dut.clk, 100, units="ns") #clock 10MHz
     cocotb.start_soon(clock.start())
 
     print(dir(dut))
@@ -35,29 +35,29 @@ async def test_ro_temp_sensor(dut):
     #await ClockCycles(dut.clk, 5)
     #dut.osc_sel.value = 3
     #dut._log.info("osc4 select")
-    await Timer(52083,'ns')
+    await Timer(1000,'ns')
     for i in range(10):
-        await Timer(1,'ms')
+        await Timer(8.68,'us')
         dut.rx.value = rx_1[i]
         dut._log.info("tx... ")
-    await Timer(40,'ms')
+    await Timer(5,'ms')
     for i in range(10):
-        await Timer(1,'ms')
+        await Timer(8.68,'us')
         dut.rx.value = rx_1[i]
         dut._log.info("tx2... ")
-    await Timer(50,'ms')
-    dut.sum_sel.value=2
+    await Timer(5,'ms')
+    """dut.sum_sel.value=2
     for i in range(10):
-        await Timer(1,'ms')
+        await Timer(8.68,'us')
         dut.rx.value = rx_1[i]
         dut._log.info("tx3... ")
     await Timer(40,'ms')
     for i in range(10):
-        await Timer(1,'ms')
+        await Timer(8.68,'us')
         dut.rx.value = rx_1[i]
         dut._log.info("tx4... ")
     await Timer(50,'ms')
-"""
+
     dut.clk_sel.value = 1
     dut.osc_sel.value = 1
     await Timer(100000000,'ns')

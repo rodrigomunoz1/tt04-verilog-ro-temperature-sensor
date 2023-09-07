@@ -87,7 +87,7 @@ FSM_controller controller(clk1, rst_n, sum_ready, test, rx_ready,
 							rx_data, sum_en, tx_start, send_sel);
 
 //Comunication
-uart_basic #(10000,1000) uart(clk1, rst_n, rx, rx_data, rx_ready, tx, 
+uart_basic #(10000000,115200) uart(clk1, rst_n, rx, rx_data, rx_ready, tx, 
 								tx_start, tx_data, test);
 
 endmodule

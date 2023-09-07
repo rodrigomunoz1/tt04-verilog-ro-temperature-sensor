@@ -31,57 +31,48 @@ yaml_version: 4
 #
 # Here is a great example: https://github.com/davidsiaw/tt02-davidsiaw-stackcalc/blob/38c5647f83aad2aec675d566aa3d67b98f0aac81/info.yaml
 documentation: 
-  author:       "Jorge Marin, Daniel Arevalos, Rodrigo Munoz"
-  title:        "ring oscillator based temperature sensor"
+  author:       "Rodrigo Munoz (UCH)"
+  title:        "another ring oscillator based temperature sensor"
   language:     "Verilog"
-  description:  "Ring oscillator whose frecuency depends on temperature."
+  description:  "4 Ring oscillator whose frecuency depends on temperature. It project is based on https://github.com/JorgeMarinN/tt03_ac3e-usm_ro-based_tempsens"
 
 # Longer description of how the project works. You can use standard markdown format.
   how_it_works: |
-      Uses counters to determine the number of cycles of the ring oscillator 
-      within a clock period, wich will then be sent through the UART to 
-      determine the temperature vs frecuency caracteristic.
+    After ena=1 and the reset cycle, a counter counts the number of cycles of 
+    the selected ring oscillator in one period of the system clock. 
+    This count is added cumulatively, the number of counts added is given by 
+    the entry sum_sel: (sum_sel+1)*4. 
+    When the data 0x00 (START CODE) is received by the uart, the sum total of 
+    three bytes long is sent back.
+    additionally, on each clock cycle the output of the oscillator cycle 
+    counter is divided by 2 and sent to the output uo_out[7:1] and uio_out[7:0].
 
 # Instructions on how someone could test your project, include things like what buttons do what and how to set the clock if needed
   how_to_test:  |
       After reset and enable are set, the ring oscillator should start and then 
-      when a START code is received by UART, a value is sent back.
+      when a START code (0x00) is received by UART, the cumulative sum value of 
+      3 bytes is sent back. The oscillator counter divided by 2 is present on
+      uo_out[7:1] and uio_out[7:0].
 
 # A description of what the inputs do (e.g. red button, SPI CLK, SPI MOSI, etc).
   inputs:               
-    - clk_internal
-    - clk_external
-    - clk_sel
-    - enable_inv_osc
-    - enable_nand_osc
-    - reset
-    - rx
-    - osc_sel
+    - ui_in[0] = clk_external 
+    - ui_in[1] = clk_sel (select the system clock input)
+    - ui_in[4:2] = sum_sel (number of oscillator counts added (sum_sel+1)*4)
+    - ui_in[5] = rx (UART RX)
+    - ui_in[7:6] = osc_sel (select one of 4 ring oscillators)
 # A description of what the outputs do (e.g. status LED, SPI MISO, etc)
   outputs:
-    - tx
-    - sum[8]
-    - sum[10]
-    - sum[13]
-    - sum[15]
-    - sum[17]
-    - sum[19]
-    - sum[21]
+    - uo_out[0] = tx (UART tx)
+    - uo_out[7:1] = oscillator counter bits 7 to 1 
 # A description of what the bidirectional I/O pins do (e.g. I2C SDA, I2C SCL, etc)
   bidirectional:
-    - second counter bit 0
-    - second counter bit 1
-    - second counter bit 2
-    - second counter bit 3
-    - second counter bit 4
-    - second counter bit 5
-    - second counter bit 6
-    - second counter bit 7
+    - - uio_out[7:0] = oscillator counter bits 15 to 8
 
 # The following fields are optional
   tag:          "timer, test"      # comma separated list of tags: test, encryption, experiment, clock, animation, utility, industrial, pwm, fpga, alu, microprocessor, risc, riscv, sensor, signal generator, fft, filter, music, bcd, sound, serial, timer, random number generator, calculator, decoder, counter, puzzle, multiplier, game, oscillator,
   external_hw:  ""      # Describe any external hardware needed
-  discord:      "mattvenn"      # Your discord handle, used for communication and automatically assigning tapeout role after a submission
+  discord:      ""      # Your discord handle, used for communication and automatically assigning tapeout role after a submission
   doc_link:     ""      # URL to longer form documentation, eg the README.md in your repository
   clock_hz:     10000000       # Clock frequency in Hz (if required)
   picture:      ""      # relative path to a picture in your repository
