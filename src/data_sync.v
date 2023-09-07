@@ -18,7 +18,9 @@ module data_sync
 
 	/* Clock synchronized input */
 	reg [1:0] in_sync_sr;
-	wire in_sync = in_sync_sr[0];
+	wire in_sync;
+
+	assign in_sync = in_sync_sr[0];
 
 	always @(posedge clk)
 		in_sync_sr <= {in, in_sync_sr[1]};

@@ -8,8 +8,10 @@ module contador#(parameter N = 8)(	input osc_clk,
 reg aux;
 
 always @(posedge osc_clk) begin
-	if(!reset_n) 
+	if(!reset_n) begin
 		aux <= 1;
+		count <= 0;
+	end
 	else if(clk && aux) begin
 		aux <= 0;
 		count <= 0;

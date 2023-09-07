@@ -13,14 +13,11 @@ module tt_um_rodrigomunoz1_rotempsensor_top(
 
 //INPUTS
 assign clk_internal	= clk;
-//assign clk_internal	= ui_in[0];
-assign clk_external	= ui_in[1];
-assign clk_sel		= ui_in[2];
-assign en_inv_osc	= ui_in[3];
-assign en_nand_osc	= ui_in[4];
-//assign reset		= ui_in[5];
-assign rx			= ui_in[6];
-assign osc_sel		= ui_in[7];
+assign clk_external	= ui_in[0];
+assign clk_sel		= ui_in[1];
+
+assign rx			= ui_in[5];
+assign osc_sel[1:0]	= ui_in[7:6];
 
 //OUTPUTS
 assign uo_out[0] = tx;
@@ -29,11 +26,18 @@ assign uio_out[7:0] = count_reg[15:8];
 assign uio_oe = 8'b11111111;
 
 //INTERNALS
+//ring oscillators
+wire [1:0] osc_sel;
+wire [3:0] en_osc;
+wire en;
+wire [3:0] out_osc_n;
+wire out_osc;
+
+//selection of clock
+wire clk_external, clk_sel, clk_internal, clk1;
+
 wire rx, rx_ready, tx, tx_start, tx_busy, test;
 wire sum_ready, sum_en;
-wire osc_sel, en_inv_osc, en_nand_osc, en;
-wire clk_external, clk_sel, clk_internal, clk1;
-wire out_osc_inv, out_osc_nand, out_osc;
 wire [23:0] promedio;
 wire [15:0] count;
 reg [15:0] count_reg;
@@ -45,7 +49,7 @@ wire [1:0] send_sel;
 //Clocks management
 mux m(clk_external, clk_internal, clk_sel, clk1);
 
-mux m3(en_inv_osc, en_nand_osc, osc_sel, en);
+assign en_osc = (ena && rst_n) ? 4'b0001 << osc_sel : 4'b0000; //enable selected oscillator
 
 //tx_data management
 always @* begin
@@ -58,19 +62,23 @@ always @* begin
 end
 
 //Oscillators
-USM_ringoscillator_inv2 osc1(en_inv_osc, out_osc_inv);
-USM_ringoscillator_nand4 osc2(en_nand_osc, out_osc_nand);
-mux m2(out_osc_inv, out_osc_nand, osc_sel, out_osc);
+USM_ringoscillator_inv2 #(15) osc1(en_osc[0], out_osc_n[0]);
+USM_ringoscillator_nand4 #(15) osc2(en_osc[1], out_osc_n[1]);
+USM_ringoscillator_inv2 #(7) osc3(en_osc[2], out_osc_n[2]);
+USM_ringoscillator_nand4 #(21) osc4(en_osc[3], out_osc_n[3]);
+
+mux4in m2(	out_osc_n[0], out_osc_n[1], out_osc_n[2], out_osc_n[3], 
+			osc_sel, out_osc);
 
 //Counters
-contador #(16) cont(out_osc, en, rst_n, clk1, count);
+contador #(16) cont(out_osc, ena, rst_n, clk1, count);
 
 always @(posedge clk1) begin
 	if(!rst_n) count_reg <= 0;
 	else count_reg <= count; 
 end
 
-promedio #(24) prom(clk1, rst_n, en, sum_en, count, promedio, sum_ready);
+promedio #(24) prom(clk1, rst_n, ena, sum_en, count, promedio, sum_ready);
 
 //Controller
 FSM_controller controller(clk1, rst_n, sum_ready, test, rx_ready, 

@@ -32,21 +32,19 @@ module tb ();
     reg en_inv_osc;
     reg en_nand_osc;
     reg rx;
-    reg osc_sel;
+    reg [1:0] osc_sel;
     //outputs signals
     wire tx;
-    wire [6:0] counter;
+    wire [15:0] counter;
 
     //assign
-    assign ui_in[1] = clk_external;
-    assign ui_in[2] = clk_sel;
-    assign ui_in[3] = en_inv_osc;
-    assign ui_in[4] = en_nand_osc;
-    assign ui_in[6] = rx;
-    assign ui_in[7] = osc_sel;
+    assign ui_in[0] = clk_external;
+    assign ui_in[1] = clk_sel;
+    assign ui_in[5] = rx;
+    assign ui_in[7:6] = osc_sel;
     //outputs signals map
     assign tx           = uo_out[0];
-    assign counter      = uo_out[7:1];
+    assign counter      = {uio_out[7:0], uo_out[7:1], 1'b0};
 
     tt_um_rodrigomunoz1_rotempsensor_top tt_rodrigomunoz1_rotempsensor_top (
     // include power ports for the Gate Level test

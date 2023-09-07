@@ -29,7 +29,7 @@ sky130_fd_sc_hd__inv_2 inv(.A(A),.Y(Y));
 `endif
 endmodule
 
-module USM_ringoscillator_inv2(
+module USM_ringoscillator_inv2#(parameter etapas = 15)(
 
 	input en,
 	output out
@@ -37,7 +37,7 @@ module USM_ringoscillator_inv2(
 );
 
 
-localparam etapas = 15;
+//localparam etapas = 15;
 
 wire aux_wire [etapas:0];
     
@@ -54,7 +54,7 @@ assign out = aux_wire[etapas];
 
 endmodule
 
-module USM_ringoscillator_nand4(
+module USM_ringoscillator_nand4#(parameter etapas = 15)(
 
 	input en,
 	output out
@@ -62,7 +62,7 @@ module USM_ringoscillator_nand4(
 );
 
 
-localparam etapas = 10;
+//localparam etapas = 15;
 
 wire aux_wire [etapas:0];
     
