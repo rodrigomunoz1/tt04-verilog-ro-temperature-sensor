@@ -57,7 +57,7 @@ always @* begin
 		end
 		WAIT_SEND_1: begin
 			//if(!tx_busy) next_state = SEND_SUM_2;
-			if(timer >= 868) next_state = SEND_SUM_2;
+			if(timer >= 869) next_state = SEND_SUM_2;
 		end
 		SEND_SUM_2: begin
 			tx_send = 1;
@@ -67,7 +67,7 @@ always @* begin
 		WAIT_SEND_2: begin
 			send_sel = 1;
 			//if(!tx_busy) next_state = SEND_SUM_3;
-			if(timer >= 868) next_state = SEND_SUM_3;
+			if(timer >= 869) next_state = SEND_SUM_3;
 		end
 		SEND_SUM_3: begin
 			tx_send = 1;
@@ -77,7 +77,7 @@ always @* begin
 		WAIT_SEND_3: begin
 			send_sel = 2;
 			//if(!tx_busy) next_state = IDLE;
-			if(timer >= 868) next_state = IDLE;
+			if(timer >= 869) next_state = IDLE;
 		end
 	endcase
 end
